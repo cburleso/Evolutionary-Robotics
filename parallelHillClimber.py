@@ -1,6 +1,7 @@
 ##from robot import ROBOT
 ##from individual import INDIVIDUAL
 from population import POPULATION
+import copy
 ##import pyrosim
 ##import matplotlib.pyplot as plt
 ##import random
@@ -23,8 +24,22 @@ from population import POPULATION
 ##        # pickle.dump(parent, f)
 ##        # f.close()
 
-pop = POPULATION(5)
-pop.Evaluate()
+parents = POPULATION(5)
+parents.Evaluate()
+parents.Print()
+
+print()
+
+for g in range(1, 101):
+    children = copy.deepcopy(parents)
+    children.Mutate()
+    children.Evaluate()
+    parents.ReplaceWith(children)
+    print(g, end = ' ')
+    parents.Print()
+    print()
+    
+
 
 '''    
  Sensor data from red cylinder
