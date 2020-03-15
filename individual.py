@@ -7,38 +7,35 @@ from robot import ROBOT
 class INDIVIDUAL:
     def __init__(self, i):
         self.ID = i
-        self.genome = numpy.random.random(4) * 2 - 1
+        self.genome = numpy.random.rand(4, 8) * 2 - 1
         self.fitness = 0
         
-
-##    def Evaluate(self, pb):
-##        sim = pyrosim.Simulator(play_paused = False, eval_steps = 300, play_blind = pb)
-##        sim.set_camera((-4, -1, 2), (15, -15, 0), tracking = 'none', body_to_track = 0)
-##        robot = ROBOT(sim, self.genome)
-##
-##        sim.start()
-##        sim.wait_to_finish()
-
-##        yPos = sim.get_sensor_data(sensor_id = robot.y)
-##        
-##        self.fitness = yPos[-1]
-
-    def Start_Evaluation(self, pb):
-        self.sim = pyrosim.Simulator(play_paused = False, eval_steps = 300, play_blind = pb)
-        self.sim.set_camera((-4, -1, 2), (15, -15, 0), tracking = 'none', body_to_track = 0)
+    def Start_Evaluation(self, pp, pb):
+        self.sim = pyrosim.Simulator(play_paused = pp, eval_steps = 1000, play_blind = pb)
+        #self.sim.set_camera((-4, -1, 2), (15, -15, 0), tracking = 'none', body_to_track = 0)
         self.robot = ROBOT(self.sim, self.genome)
         self.sim.start()
 
     def Compute_Fitness(self):
         self.sim.wait_to_finish()
-        yPos = self.sim.get_sensor_data(sensor_id = self.robot.y)
-        self.fitness = yPos[-1]
+        y = self.sim.get_sensor_data(sensor_id = self.robot.yPos)
+        if (y == None):
+            self.fitness = -1000
+        else:
+            self.fitness = y[-1]
+            
         del self.sim
         
     def Mutate(self):
-        geneToMutate = random.randint(0, 3)
-        self.genome[geneToMutate] = random.gauss(self.genome[geneToMutate], math.fabs(self.genome[geneToMutate]))
-
+        randRow = random.randint(0, 3)
+        randCol = random.randint(0, 7)
+        #self.genome[randRow][randCol] = random.gauss(self.genome[randRow][randCol], math.fabs(self.genome[randRow][randCol]))
+        self.genome[randRow][randCol] = random.uniform(-1, 1)
+        if (self.genome[randRow][randCol] > 1):
+            self.genome[randRow][randCol] = 1
+        if (self.genome[randRow][randCol] < -1):
+            self.genome[randRow][randCol] = -1
+    
     def Print(self):
         print('[', self.ID, self.fitness, '] ', end = '')
 

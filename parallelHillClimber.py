@@ -1,45 +1,22 @@
-##from robot import ROBOT
-##from individual import INDIVIDUAL
 from population import POPULATION
 import copy
-##import pyrosim
-##import matplotlib.pyplot as plt
-##import random
-##import copy
-##import pickle
-##
-##parent = INDIVIDUAL()
-##parent.Evaluate(True)
-##print(parent.fitness)
-##
-##for i in range(0, 100):
-##    child = copy.deepcopy(parent)
-##    child.Mutate()
-##    child.Evaluate(True)
-##    print('[g:', i + 1, ']', '[pw:', parent.genome, ']', '[p:', parent.fitness , ']', '[c:', child.fitness, ']')
-##    if (child.fitness > parent.fitness):
-##        parent = child
-##        child.Evaluate(True)
-##        # f = open('robot.p', 'wb')
-##        # pickle.dump(parent, f)
-##        # f.close()
 
-parents = POPULATION(5)
-parents.Evaluate()
+parents = POPULATION(10)
+parents.Evaluate(False, True)
 parents.Print()
 
 print()
 
-for g in range(1, 101):
+for g in range(1, 201):
     children = copy.deepcopy(parents)
     children.Mutate()
-    children.Evaluate()
+    children.Evaluate(False, True)
     parents.ReplaceWith(children)
     print(g, end = ' ')
     parents.Print()
     print()
     
-
+parents.Evaluate(True, False)
 
 '''    
  Sensor data from red cylinder
