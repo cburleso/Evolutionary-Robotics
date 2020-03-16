@@ -20,14 +20,13 @@ class POPULATION:
         
     def Fill_From(self, other):
         self.Copy_Best_From(other)
-        print()
         self.Collect_Children_From(other)
 
     def Collect_Children_From(self, other):
         for i in range(1, len(other.p)):
             winner = other.Winner_Of_Tournament_Selection()
             self.p[i] = copy.deepcopy(winner)
-            winner.Mutate()
+            self.p[i].Mutate()
             
     def Copy_Best_From(self, other):
         best = 0
@@ -43,11 +42,10 @@ class POPULATION:
             self.p[i] = INDIVIDUAL(i)
         
     def Print(self):
-        if len(self.p) == 0:
-            print()
         for i in self.p:
             if i in self.p:
                 self.p[i].Print()
+        print()
 
     def Evaluate(self, pp, pb):
         for i in self.p:

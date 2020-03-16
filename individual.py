@@ -23,8 +23,9 @@ class INDIVIDUAL:
             self.fitness = -1000
         else:
             self.fitness = y[-1]
-            
+        
         del self.sim
+        del self.robot
         
     def Mutate(self):
         randRow = random.randint(0, 3)

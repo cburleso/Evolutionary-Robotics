@@ -7,7 +7,7 @@ parents.Evaluate(False, True)
 print('P', end = ' ')
 parents.Print()
 
-for g in range(1, 201):
+for g in range(1, 10):
     children = POPULATION(10)
     children.Fill_From(parents)
     children.Evaluate(False, True)
@@ -15,6 +15,6 @@ for g in range(1, 201):
     children.Print()
     parents.ReplaceWith(children)
 
-parents.p[0].Start_Evaluation(True, False)
+children.p[0].Start_Evaluation(True, False)
 
 
