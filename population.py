@@ -1,4 +1,5 @@
 from individual import INDIVIDUAL
+import constants as c
 import copy
 import random
 
@@ -47,11 +48,14 @@ class POPULATION:
                 self.p[i].Print()
         print()
 
-    def Evaluate(self, pp, pb):
-        for i in self.p:
-            self.p[i].Start_Evaluation(pp, pb)
-        for i in self.p:
-            self.p[i].Compute_Fitness()
+    def Evaluate(self, envs, pp, pb):
+        for e in range(c.numEnvs):
+            for i in self.p:
+                self.p[i].Start_Evaluation(envs.envs[e], pp, pb)
+            for i in self.p:
+                self.p[i].Compute_Fitness()
+            
+        
 
     def Mutate(self):
         for i in self.p:

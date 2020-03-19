@@ -1,20 +1,27 @@
+from environments import ENVIRONMENTS
 from population import POPULATION
-import copy
+import constants as c
 
-parents = POPULATION(10)
+envs = ENVIRONMENTS()
+
+
+
+##import copy
+##
+parents = POPULATION(c.popSize)
 parents.Initialize()
-parents.Evaluate(False, True)
-print('P', end = ' ')
-parents.Print()
-
-for g in range(1, 10):
-    children = POPULATION(10)
-    children.Fill_From(parents)
-    children.Evaluate(False, True)
-    print(g, end = ' ')
-    children.Print()
-    parents.ReplaceWith(children)
-
-children.p[0].Start_Evaluation(True, False)
+parents.Evaluate(envs, False, False)
+##print('P', end = ' ')
+##parents.Print()
+##
+##for g in range(1, c.numGens + 1):
+##    children = POPULATION(c.popSize)
+##    children.Fill_From(parents)
+##    children.Evaluate(False, True)
+##    print(g, end = ' ')
+##    children.Print()
+##    parents.ReplaceWith(children)
+##
+##children.p[0].Start_Evaluation(True, False)
 
 

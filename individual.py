@@ -2,6 +2,7 @@ import pyrosim
 import random
 import math
 import numpy
+import constants as c 
 from robot import ROBOT
 
 class INDIVIDUAL:
@@ -10,8 +11,9 @@ class INDIVIDUAL:
         self.genome = numpy.random.rand(4, 8) * 2 - 1
         self.fitness = 0
         
-    def Start_Evaluation(self, pp, pb):
-        self.sim = pyrosim.Simulator(play_paused = pp, eval_steps = 1000, play_blind = pb)
+    def Start_Evaluation(self, env, pp, pb):
+        self.sim = pyrosim.Simulator(play_paused = pp, eval_steps = c.evalTime, play_blind = pb)
+        env.Send_To(self.sim)
         #self.sim.set_camera((-4, -1, 2), (15, -15, 0), tracking = 'none', body_to_track = 0)
         self.robot = ROBOT(self.sim, self.genome)
         self.sim.start()
